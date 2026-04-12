@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #08111f;
+  --bg-card: rgba(255, 255, 255, 0.06);
+  --text-primary: #eff6ff;
+  --text-secondary: #c9d7ea;
+  --text-muted: #8aa0bd;
+  --accent: #5faeff;
+  --accent-soft: rgba(95, 174, 255, 0.14);
+}
+
+:root[data-theme="light"] {
+  --bg: #eef4fb;
+  --bg-card: rgba(255, 255, 255, 0.72);
+  --text-primary: #10233d;
+  --text-secondary: #42597a;
+  --text-muted: #6d83a0;
+  --accent: #1368d6;
+  --accent-soft: rgba(19, 104, 214, 0.12);
+}
+
+html {
+  background:
+    radial-gradient(circle at top left, rgba(95, 174, 255, 0.18), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.12), transparent 25%),
+    var(--bg);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+  background: transparent;
+  color: var(--text-primary);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.auth-input {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(10, 16, 30, 0.22);
+  padding: 0.95rem 1rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+
+.auth-input::placeholder {
+  color: var(--text-muted);
+}
+
+.auth-input:focus {
+  border-color: rgba(95, 174, 255, 0.55);
+  transform: translateY(-1px);
+}
+
+.primary-button,
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border-radius: 999px;
+  padding: 0.85rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: transform 160ms ease, opacity 160ms ease, border-color 160ms ease;
+}
+
+.primary-button {
+  border: 0;
+  background: linear-gradient(135deg, #7dd3fc, var(--accent));
+  color: #04111f;
+}
+
+.secondary-button {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-1px);
+}
+
+.primary-button:disabled,
+.secondary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+  transform: none;
+}
