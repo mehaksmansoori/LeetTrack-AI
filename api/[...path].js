@@ -1,17 +1,31 @@
-import app from "../server/src/app.js";
-import { connectDatabase } from "../server/src/config/db.js";
-
 let databasePromise;
+let appPromise;
+
+const getApp = async () => {
+  appPromise ||= import("../server/src/app.js");
+  return appPromise;
+};
 
 const ensureDatabase = () => {
-  databasePromise ||= connectDatabase();
+  databasePromise ||= import("../server/src/config/db.js").then(({ connectDatabase }) =>
+    connectDatabase()
+  );
   return databasePromise;
 };
 
 export default async function handler(req, res) {
-  if (req.url !== "/api/health") {
-    await ensureDatabase();
-  }
+  try {
+    const { default: app } = await getApp();
 
-  return app(req, res);
+    if (req.url !== "/api/health") {
+      await ensureDatabase();
+    }
+
+    return app(req, res);
+  } catch (error) {
+    console.error("[api] startup failed", error);
+    return res.status(500).json({
+      message: error.message || "API startup failed."
+    });
+  }
 }
