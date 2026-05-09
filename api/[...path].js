@@ -9,6 +9,9 @@ const ensureDatabase = () => {
 };
 
 export default async function handler(req, res) {
-  await ensureDatabase();
+  if (req.url !== "/api/health") {
+    await ensureDatabase();
+  }
+
   return app(req, res);
 }
