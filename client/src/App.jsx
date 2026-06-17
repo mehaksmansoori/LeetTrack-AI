@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import { useAuth } from "./context/AuthContext";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
@@ -17,10 +18,13 @@ const App = () => {
   }
 
   return (
-    <Routes>
-      <Route path="/auth" element={user ? <Navigate to="/" replace /> : <AuthPage />} />
-      <Route path="/" element={user ? <DashboardPage /> : <Navigate to="/auth" replace />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/auth" element={user ? <Navigate to="/" replace /> : <AuthPage />} />
+        <Route path="/" element={user ? <DashboardPage /> : <Navigate to="/auth" replace />} />
+      </Routes>
+      <Analytics />
+    </>
   );
 };
 
